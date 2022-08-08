@@ -85,11 +85,11 @@ export class WorkersListComponent implements OnInit, OnDestroy {
   }
 
   onTableClick(event: any): void {
-    switch (event.target.dataset.action) {
+    switch (event.target?.dataset.action) {
       case 'delete':
         const confirmRef = this.dialog.open(ConfirmDialogComponent);
         confirmRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((result) => {
-          result ? (this.workers?.splice(event.target.dataset.row, 1), this.changeDetection.markForCheck()) : null
+          result ? (this.workers?.splice(event.target?.dataset.row, 1), this.changeDetection.markForCheck()) : null
         })
 
         break;
@@ -97,15 +97,15 @@ export class WorkersListComponent implements OnInit, OnDestroy {
         const editRef = this.dialog.open(EditDialogComponent,
           {
             data        : {
-              worker: this.workers![event.target.dataset.row], ageValidators: this.ageValidators,
-              stringValidators: this.stringValidators
+              worker: this.workers?.[event.target?.dataset.row], ageValidators: this.ageValidators,
+              stringValidators                                                : this.stringValidators
             }, autoFocus: false
           })
         editRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((result) => {
-          result ? (
-            this.workers![event.target.dataset.row].age = result.age,
-              this.workers![event.target.dataset.row].name.first = result.firstName,
-              this.workers![event.target.dataset.row].name.last =
+          result && this.workers ? (
+            this.workers[event.target?.dataset.row].age = result.age,
+              this.workers[event.target?.dataset.row].name.first = result.firstName,
+              this.workers[event.target?.dataset.row].name.last =
                 result.lastName, this.changeDetection.markForCheck()) : null
         })
 
@@ -126,13 +126,13 @@ export class WorkersListComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSortByMaxAge() {
+  onSortByMaxAge(): void {
     this.isSortedByMaxAge ? null : this.workers?.sort((a, b) => a.age < b.age ? 1 : -1),
       this.isSortedByMaxAge = true, this.isSortedByMinAge = false
   }
 
 
-  onSortByMinAge() {
+  onSortByMinAge(): void {
     this.isSortedByMinAge ? null : this.workers?.sort((a, b) => a.age > b.age ? 1 : -1),
       this.isSortedByMinAge = true, this.isSortedByMaxAge = false
   }
