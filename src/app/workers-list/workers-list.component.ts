@@ -97,7 +97,8 @@ export class WorkersListComponent implements OnInit, OnDestroy {
         const editRef = this.dialog.open(EditDialogComponent,
           {
             data        : {
-              worker: this.workers![event.target.dataset.row], age: this.ageValidators, string: this.stringValidators
+              worker: this.workers![event.target.dataset.row], ageValidators: this.ageValidators,
+              stringValidators: this.stringValidators
             }, autoFocus: false
           })
         editRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((result) => {

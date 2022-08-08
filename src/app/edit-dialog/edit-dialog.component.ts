@@ -17,7 +17,7 @@ export class EditDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
     @Inject(
-      MAT_DIALOG_DATA) public data: { worker: WorkerT, ageValidators: Validators[], stringValidators: Validators[], },
+      MAT_DIALOG_DATA) public data: { worker: WorkerT, ageValidators: Validators[], stringValidators: Validators[] },
     readonly fb: FormBuilder
   ) {
   }
