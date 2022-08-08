@@ -1,0 +1,18 @@
+@import '../components';
+
+.confirm-dialog-container {
+  @extend %form-confirm-block;
+}
+
+.confirm-buttons {
+  @extend %buttons-block;
+}
+
+.confirm-dialog-title {
+  text-align: center;
+}
+
+.button {
+  width: 50px;
+  height: 25px;
+}

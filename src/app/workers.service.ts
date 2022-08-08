@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {WorkerT} from "./workers.type";
 import {Observable} from "rxjs";
+
+import {WorkerT} from "./workers.type";
 
 
 @Injectable({
@@ -9,10 +10,10 @@ import {Observable} from "rxjs";
 })
 export class WorkersService {
 
-  constructor(private http: HttpClient) {
+  constructor(readonly http: HttpClient) {
   }
 
-  getWorkers():Observable<WorkerT[]> {
+  getWorkers(): Observable<WorkerT[]> {
     return this.http.get<WorkerT[]>('/assets/mates.json');
   }
 }

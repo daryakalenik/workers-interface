@@ -1,4 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
+
 import {WorkerT} from "./workers.type";
 
 
@@ -12,9 +13,9 @@ export class WorkersFilterPipe implements PipeTransform {
       return workers
     }
     return workers.filter((worker): boolean => {
-      return String(worker.age).indexOf(value) !== -1 ||
-        worker.name.first.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-        worker.name.last.toLowerCase().indexOf(value.toLowerCase()) !== -1
+      return String(worker.age).includes(value) ||
+        worker.name.first.toLowerCase().includes(value.toLowerCase()) ||
+        worker.name.last.toLowerCase().includes(value.toLowerCase())
     })
 
 

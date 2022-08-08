@@ -1,0 +1,49 @@
+<form [formGroup]="data.workersForm" class="form">
+  <div class='form-inputs'>
+    <label> <span class="form-input-title">First name</span> <input formControlName="firstName" name="firstName"
+                                                                    type="text">
+      <span
+        *ngIf="data.workersForm.get('firstName')?.touched && data.workersForm.get('firstName')?.hasError('required')"
+        class='error'>First name field is required</span>
+      <span *ngIf="data.workersForm.get('firstName')?.touched &&
+        data.workersForm.get('firstName')?.hasError('maxlength')" class='error'>Max length is 15 characters</span>
+      <span *ngIf="data.workersForm.get('firstName')?.touched &&
+        data.workersForm.get('firstName')?.hasError('pattern')" class='error'>You can only use letters</span>
+      <span *ngIf="data.workersForm.get('firstName')?.touched &&
+        data.workersForm.get('firstName')?.hasError('notUpperCase')"
+            class='error'>Capitalize first letter</span>
+    </label>
+
+    <label> <span class="form-input-title">Last name</span> <input formControlName="lastName" name="lastName"
+                                                                   type="text">
+      <span
+        *ngIf="data.workersForm.get('lastName')?.touched && data.workersForm.get('lastName')?.hasError('required')"
+        class='error'>Last name field is required</span>
+      <span *ngIf="data.workersForm.get('lastName')?.touched &&
+        data.workersForm.get('lastName')?.hasError('maxlength')" class='error'>Max length is 15 characters</span>
+      <span *ngIf="data.workersForm.get('lastName')?.touched &&
+        data.workersForm.get('lastName')?.hasError('pattern')" class='error'>You can only use letters</span>
+      <span *ngIf="data.workersForm.get('lastName')?.touched &&
+        data.workersForm.get('lastName')?.hasError('notUpperCase')"
+            class='error'>Capitalize first letter</span>
+    </label>
+
+    <label><span class="form-input-title">Age</span><input formControlName="age"
+                                                           name="age" type="number">
+      <span *ngIf="data.workersForm.get('age')?.touched && data.workersForm.get('age')?.hasError('required')"
+            class='error'>Age field is required</span>
+      <span *ngIf="data.workersForm.get('age')?.touched && (data.workersForm.get('age')?.hasError('min') ||
+        data.workersForm.get('age')?.hasError('max'))"
+            class='error'>The range is 1-100</span>
+
+    </label>
+  </div>
+
+  <div class="buttons">
+    <button [disabled]="!data.workersForm.valid" [mat-dialog-close]="data.workersForm.value" class="button"
+            type="submit">Add new worker
+    </button>
+    <button (click)="onNoClick()" class="button">Close form</button>
+  </div>
+</form>
+

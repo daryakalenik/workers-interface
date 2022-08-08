@@ -1,0 +1,21 @@
+@import '../components';
+
+.form {
+  @extend %form-confirm-block;
+}
+
+.buttons {
+  @extend %buttons-block;
+}
+
+.button {
+  width: 50px;
+}
+
+.form-inputs {
+  @extend %form-inputs;
+}
+
+
+
+

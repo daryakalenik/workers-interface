@@ -1,79 +1,44 @@
 <div class="wrapper">
 
   <div class="input-container">
-    <input [(ngModel)]="searchValue" placeholder="Search for a person..." type="text">
+    <input [(ngModel)]="searchValue" class="search-input" placeholder="Search for a person..." type="text">
   </div>
+
+  <button (click)="onOpenDialog()" class="new-worker-button">Add new worker</button>
 
   <div class="table-container">
     <table class="table">
       <thead>
       <tr>
-        <th>#</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Age</th>
-        <th>Actions</th>
+        <th>{{numberColumn}}</th>
+        <th>{{firstNameColumn}}</th>
+        <th>{{lastNameColumn}}</th>
+        <th>{{ageColumn}}
+          <button (click)="onSortByMaxAge()" class="button-sort">max</button>
+          <button (click)="onSortByMinAge()" class="button-sort">min</button>
+        </th>
+        <th>{{actionsColumn}}</th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let worker of workers | workersFilter: searchValue; let i=index">
+      <tbody (click)="onTableClick($event)">
+      <tr *ngFor="let worker of (onFilterWorkers(workers || [])); let i=index">
         <td>{{i + 1}}</td>
-        <td *ngIf="currentEditedWorker !== i; else firstNameInput">{{worker.name.first}}</td>
-        <ng-template #firstNameInput>
-          <td><input [(ngModel)]="worker.name.first"></td>
-        </ng-template>
-        <td *ngIf="currentEditedWorker !== i; else lastNameInput">{{worker.name.last}}</td>
-        <ng-template #lastNameInput>
-          <td><input [(ngModel)]="worker.name.first"></td>
-        </ng-template>
-        <td *ngIf="currentEditedWorker !== i; else ageInput">{{worker.age}}</td>
-        <ng-template #ageInput>
-          <td><input [(ngModel)]="worker.age"></td>
-        </ng-template>
+        <td>{{worker.name.first}}</td>
+        <td>{{worker.name.last}}</td>
+        <td>{{worker.age}}</td>
         <td>
-          <button (click)="deleteWorker(i)">Delete</button>
-          <button (click)="editWorker(i)" *ngIf="currentEditedWorker !== i; else saveButton">Edit</button>
-          <ng-template #saveButton>
-            <button (click)="saveChanges()">Save</button>
-          </ng-template>
+          <button attr.data-row="{{i}}" class="action-button" data-action="delete">Delete</button>
+          <button attr.data-row="{{i}}" class="action-button" data-action="edit">Edit</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-
-
-  <div class="form-container">
-    <button (click)="addingNewWorker()" *ngIf="!isAddingNewWorker" class="button">Add new worker</button>
-    <form (ngSubmit)="onSubmitReactiveForm()" *ngIf="isAddingNewWorker" [formGroup]="workersForm">
-      <div class='form'>
-        <label> First name <input formControlName="firstName" name="firstName"
-                                  type="text">
-          <span *ngIf="workersForm.controls['firstName'].invalid && workersForm.controls['firstName'].touched"
-                class='error'>First name field is invalid</span>
-
-        </label>
-
-        <label> Last name <input formControlName="lastName" name="lastName"
-                                 type="text">
-          <span *ngIf="workersForm.controls['lastName'].invalid && workersForm.controls['lastName'].touched"
-                class='error'>Last name field is invalid</span>
-        </label>
-
-        <label> Age <input formControlName="age" name="age"
-                           type="number">
-          <span *ngIf="workersForm.controls['age'].invalid && workersForm.controls['age'].touched"
-                class='error'>Age field is invalid</span>
-        </label>
-      </div>
-      <div class="buttons">
-        <button [disabled]="!workersForm.valid" class="button" type="submit">Add new worker</button>
-        <button (click)="addingNewWorker()" class="button">Close form</button>
-      </div>
-    </form>
-  </div>
-
 </div>
+
+
+
+
 
 
 
